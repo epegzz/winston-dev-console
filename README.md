@@ -6,6 +6,10 @@ Opinionated Winston@3 console formatter for development
 
 ![](demo.png)
 
+### Real world screenshot:
+
+![](demo2.png)
+
 ## Install
 
 ```bash
