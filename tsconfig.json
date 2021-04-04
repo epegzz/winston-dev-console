@@ -1,0 +1,29 @@
+{
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"],
+
+  "compilerOptions": {
+    "outDir": "dist",
+    "jsx": "preserve",
+
+    "module": "CommonJS",
+    "target": "ES5",
+    "lib": ["ES5"],
+    "moduleResolution": "node",
+    
+    "sourceMap": true,
+    "declaration": true,
+
+    "strict": true,
+    "alwaysStrict": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+
+    "skipLibCheck": true,
+    "noUnusedLocals": true,
+    "resolveJsonModule": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true,
+  }
+}
