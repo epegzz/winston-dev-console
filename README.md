@@ -99,7 +99,7 @@ log.error(new Error("Unexpected error"));
 
 ### options
 
-Configuration object.<br><br>Type: `ConsoleFormatOptions`
+Configuration object.<br><br>Type: `DevConsoleFormatOptions`
 
 ### options.inspectOptions
 
