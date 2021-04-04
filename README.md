@@ -95,7 +95,7 @@ log.error(new Error("Unexpected error"));
 
 ## API
 
-## consoleFormat(options)
+## winstonDevConsole.format(options)
 
 ### options
 
