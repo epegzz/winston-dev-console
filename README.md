@@ -103,13 +103,14 @@ Configuration object.<br><br>Type: `ConsoleFormatOptions`
 
 ### options.inspectOptions
 
-`util.inspect()` configuration object.<br><br> Type: `Object`<br> Default: [Node util.inspect(object[, options])](https://nodejs.org/api/util.html#util_util_inspect_object_options)
+`util.inspect()` [configuration object](https://nodejs.org/api/util.html#util_util_inspect_object_options).<br><br> Type: `Object`<br> 
 
 ### options.basePath
 
 Used to remove the base path of the project when showing the file path of the log statement.
 By default anything in the path before (and including) the `src` folder will be removed.
 <br><br> Type: `String`<br>
-### Acknowledgements
+
+## Acknowledgements
 
 This project is inspired by [winston-console-format](https://github.com/duccio/winston-console-format)
