@@ -124,7 +124,6 @@ export class DevConsoleFormat {
       
     }
 
-
     return callee
   }
 
