@@ -1,6 +1,6 @@
 # winston-dev-console
 
-Opinionated Winston@3 console formatter for debugging
+Opinionated Winston@3 console formatter for development
 
 ## Demo
 

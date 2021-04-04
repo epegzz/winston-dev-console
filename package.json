@@ -1,5 +1,6 @@
 {
   "name": "@epegzz/winston-dev-console",
+  "description": "Opinionated Winston@3 console formatter for development",
   "version": "1.0.1",
   "license": "MIT",
   "author": {
