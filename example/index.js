@@ -1,31 +1,21 @@
-const { createLogger, format, transports } = require("winston");
+const { createLogger, transports } = require("winston");
 const path = require("path")
 const winstonDevConsole = require("../dist").default;
 const util = require("util");
 
 let log = createLogger({
   level: "silly",
-  format: format.combine(
-    format.timestamp(),
-    format.ms(),
-    format.errors({ stack: true }),
-    format.splat(),
-    format.json()
-  ),
-  defaultMeta: { service: "Test" },
-  transports: [
-    new transports.Console({
-      format: winstonDevConsole.format({
-        // Basepath will be removed from the location output
-        basePath: path.resolve(__dirname, '..'),
-        showTimestamps: false,
-        addLineSeparation: true,
-      })
-    }),
-  ],
 });
 
 log = winstonDevConsole.init(log)
+log.add(
+  winstonDevConsole.transport({
+    // Basepath will be removed from the location output
+    basePath: path.resolve(__dirname, '..'),
+    showTimestamps: false,
+    addLineSeparation: true,
+  })
+)
 
 function someFunction() {
   log.silly("Logging initialized");

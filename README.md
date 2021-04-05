@@ -16,13 +16,13 @@ A Winston@3 console format for development (based on [winston-console-format](ht
 ## Install
 
 ```bash
-npm install @epegzz/winston-dev-console
+npm install winston @epegzz/winston-dev-console
 ```
 
 or
 
 ```bash
-yarn add @epegzz/winston-dev-console
+yarn add winston @epegzz/winston-dev-console
 ```
 <br>
 
@@ -35,22 +35,16 @@ import util from "util";
 
 let log = createLogger({
   level: "silly", // or use process.env.LOG_LEVEL
-  format: format.combine(
-    format.timestamp(),
-    format.ms(),
-    format.errors({ stack: true }),
-    format.splat(),
-    format.json()
-  ),
-  defaultMeta: { service: "Test" },
-  transports: [
-    new transports.Console({
-      format: winstonDevConsole.format()
-    }),
-  ],
 });
 
-log = winstonDevConsole.init(log)
+// Note: You probably only want to use winstonDevConsole during development
+log = winstonDevConsole.init(log);
+log.add(
+  winstonDevConsole.transport({
+    showTimestamps: false,
+    addLineSeparation: true,
+  })
+);
 
 log.silly("Logging initialized");
 log.debug("Debug an object", { make: "Ford", model: "Mustang", year: 1969 });
@@ -72,22 +66,16 @@ const util = require("util");
 
 let log = createLogger({
   level: "silly", // or use process.env.LOG_LEVEL
-  format: format.combine(
-    format.timestamp(),
-    format.ms(),
-    format.errors({ stack: true }),
-    format.splat(),
-    format.json()
-  ),
-  defaultMeta: { service: "Test" },
-  transports: [
-    new transports.Console({
-      format: winstonDevConsole.format()
-    }),
-  ],
 });
 
-log = winstonDevConsole.init(log)
+// Note: You probably only want to use winstonDevConsole during development
+log = winstonDevConsole.init(log);
+log.add(
+  winstonDevConsole.transport({
+    showTimestamps: false,
+    addLineSeparation: true,
+  })
+);
 
 log.silly("Logging initialized");
 log.debug("Debug an object", { make: "Ford", model: "Mustang", year: 1969 });

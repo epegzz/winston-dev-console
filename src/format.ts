@@ -1,5 +1,5 @@
 /* eslint-disable no-control-regex */
-import { inspect, InspectOptions } from 'util'
+import { inspect } from 'util'
 import path from 'path'
 
 import colors from 'colors/safe'
@@ -7,15 +7,7 @@ import { Format, TransformableInfo } from 'logform'
 import { MESSAGE, SPLAT } from 'triple-beam'
 import * as winston from 'winston'
 
-import { Callee } from './types'
-
-export interface DevConsoleFormatOptions {
-  inspectOptions?: InspectOptions,
-  basePath?: string,
-  showTimestamps?: boolean,
-  addLineSeparation?: boolean
-}
-
+import { Callee, DevConsoleFormatOptions } from './types'
 export class DevConsoleFormat {
   private static readonly reSpaces = /^\s+/
   private static readonly reSpacesOrEmpty = /^(\s*)/
@@ -242,7 +234,11 @@ export class DevConsoleFormat {
 
 export const format = (opts?: DevConsoleFormatOptions): Format => {
   return winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.ms(),
+    winston.format.errors({ stack: true }),
     winston.format.splat(),
+    winston.format.json(),
     winston.format.colorize({ all: true }),
     winston.format.padLevels(),
     new DevConsoleFormat(opts)

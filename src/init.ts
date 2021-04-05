@@ -47,6 +47,8 @@ function createPatchedLogger(
 
 export function init(logger: Logger): Logger {
   const patchedLogger: Logger = { ...logger } as Logger
+  patchedLogger.add = logger.add.bind(logger)
+  
   patchedLogger.error = createPatchedLogger(logger, 'error')
   patchedLogger.warn = createPatchedLogger(logger, 'warn')
   patchedLogger.help = createPatchedLogger(logger, 'help')
