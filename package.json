@@ -1,7 +1,7 @@
 {
   "name": "@epegzz/winston-dev-console",
-  "description": "Opinionated Winston@3 console formatter for development",
-  "version": "1.0.1",
+  "description": "Winston@3 console format aimed to improve development UX",
+  "version": "1.1.0",
   "license": "MIT",
   "author": {
     "name": "Daniel Schäfer <epegzz@gmail.com>",
