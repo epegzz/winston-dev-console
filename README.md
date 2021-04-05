@@ -1,6 +1,9 @@
 # winston-dev-console
 
-Opinionated Winston@3 console formatter for development
+A Winston@3 console format for development (based on [winston-console-format](https://github.com/duccio/winston-console-format)) that aims to improve NodeJS development UX by
+* adding the source of the logging statement to the log output
+* optimizing readability of each log statement through log statement separation, output colorization and arg pretty printing
+   
 
 ## Demo
 
