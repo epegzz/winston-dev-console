@@ -12,6 +12,8 @@ import { Callee } from './types'
 export interface DevConsoleFormatOptions {
   inspectOptions?: InspectOptions,
   basePath?: string,
+  showTimestamps?: boolean,
+  addLineSeparation?: boolean
 }
 
 export class DevConsoleFormat {
@@ -27,6 +29,12 @@ export class DevConsoleFormat {
   }
 
   public constructor(private opts: DevConsoleFormatOptions = {}) {
+    if (typeof this.opts.addLineSeparation === 'undefined') {
+      this.opts.addLineSeparation = true
+    }
+    if (typeof this.opts.showTimestamps === 'undefined') {
+      this.opts.showTimestamps = false
+    }
     if (typeof this.opts.inspectOptions === 'undefined') {
       this.opts.inspectOptions = {
         depth: Infinity,
@@ -85,6 +93,15 @@ export class DevConsoleFormat {
     }
 
     return ms
+  }
+
+  private getTimestamp(info: TransformableInfo): string {
+    let timestamp = ''
+    if (info.timestamp) {
+      timestamp = colors.italic(colors.dim(` ${info.timestamp.replace('T', ' ')}`))
+    }
+
+    return timestamp
   }
 
   private getStackLines(info: TransformableInfo): string[] {
@@ -147,6 +164,14 @@ export class DevConsoleFormat {
     const pad = this.getPadding(info.message)
     const infoIndex = (MESSAGE as unknown) as string
 
+    if (this.opts.showTimestamps) {
+      info[infoIndex] += `\n${colors.dim(
+        info.level
+      )}:${pad}${color}${colors.dim(
+        DevConsoleFormat.chars.line
+      )}${this.getTimestamp(info)}`
+    }
+
     if (callee.filePath) {
       const filePath = ` at ${callee?.filePath}:${callee?.lineNumber}`
       const functionName = callee.functionName
@@ -163,6 +188,7 @@ export class DevConsoleFormat {
         colors.italic(`${filePath}${functionName}`)
       )}${colors.reset(' ')}`
     }
+
 
     metaLines.forEach((line, lineNumberIndex, arr) => {
       const lineNumber = colors.dim(
@@ -181,7 +207,9 @@ export class DevConsoleFormat {
       )}:${pad}${color}${colors.dim(chr)}${colors.reset(' ')}`
       info[infoIndex] += `${lineNumber} ${line}`
     })
-    info[infoIndex] += '\n'
+    if (this.opts.addLineSeparation) {
+      info[infoIndex] += '\n'
+    }
   }
 
   public transform(info: TransformableInfo): TransformableInfo {

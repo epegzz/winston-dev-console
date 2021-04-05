@@ -17,7 +17,9 @@ let log = createLogger({
     new transports.Console({
       format: winstonDevConsole.format({
         // Basepath will be removed from the location output
-        basePath: path.resolve(__dirname, '..')
+        basePath: path.resolve(__dirname, '..'),
+        showTimestamps: false,
+        addLineSeparation: true,
       })
     }),
   ],

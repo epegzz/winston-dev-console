@@ -116,7 +116,24 @@ Configuration object.<br><br>Type: `DevConsoleFormatOptions`
 
 Used to remove the base path of the project when showing the file path of the log statement.
 By default anything in the path before (and including) the `src` folder will be removed.
-<br><br> Type: `String`<br>
+<br><br>
+Type: `String`<br>
+
+### options.addLineSeparation
+
+Wheather or not to separate each log statement with a blank line.
+<br><br>
+Type: `Boolean`<br>
+Default: `true`<br>
+
+### options.showTimestamps
+
+Wheather or not to show timestamps<br>
+During development the timestamps are usually more noise then helpful, therefore disabled by default.
+<br><br>
+Type: `Boolean`<br>
+Default: `false`<br>
+
 
 ## Acknowledgements
 
