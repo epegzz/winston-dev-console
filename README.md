@@ -31,7 +31,7 @@ import winstonDevConsole from "@epegzz/winston-dev-console";
 import util from "util";
 
 let log = createLogger({
-  level: "silly",
+  level: "silly", // or use process.env.LOG_LEVEL
   format: format.combine(
     format.timestamp(),
     format.ms(),
@@ -68,7 +68,7 @@ const winstonDevConsole = require("@epegzz/winston-dev-console").default;
 const util = require("util");
 
 let log = createLogger({
-  level: "silly",
+  level: "silly", // or use process.env.LOG_LEVEL
   format: format.combine(
     format.timestamp(),
     format.ms(),
@@ -117,4 +117,4 @@ By default anything in the path before (and including) the `src` folder will be 
 
 ## Acknowledgements
 
-This project is inspired by [winston-console-format](https://github.com/duccio/winston-console-format)
+This project is inspired by and partly shamelessly copied from [winston-console-format](https://github.com/duccio/winston-console-format)
