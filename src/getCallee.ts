@@ -10,7 +10,7 @@ export function getCallee(): Callee {
 
     const result = line.match(/(\/[^:]+):([0-9]+):[0-9]+/)
     const filePath = result[1] || ''
-    const lineNumber = result[2] || ''  
+    const lineNumber = result[2] || ''
 
     return {
       functionName,

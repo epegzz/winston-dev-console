@@ -1,5 +1,6 @@
 import { LeveledLogMethod, Logger, LogCallback } from 'winston'
 
+import calleeStore from './calleeStore'
 import { getCallee } from './getCallee'
 
 type LogLevel =
@@ -32,13 +33,14 @@ function createPatchedLogger(
     if (typeof args[0] === 'string') {
       message = args[0]
       if (typeof args[1] === 'object') {
-        meta = args[1]
+        meta = { ...args[1] }
       }
     } else if (typeof args[0] === 'object') {
-      meta = args[0]
+      meta = { ...args[0] }
     }
 
-    meta._callee = getCallee()
+    calleeStore.value = getCallee()
+
     return logger[level](message, meta)
   }
 
@@ -48,7 +50,7 @@ function createPatchedLogger(
 export function init(logger: Logger): Logger {
   const patchedLogger: Logger = { ...logger } as Logger
   patchedLogger.add = logger.add.bind(logger)
-  
+
   patchedLogger.error = createPatchedLogger(logger, 'error')
   patchedLogger.warn = createPatchedLogger(logger, 'warn')
   patchedLogger.help = createPatchedLogger(logger, 'help')

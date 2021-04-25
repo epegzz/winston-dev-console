@@ -7,10 +7,10 @@ export interface Callee {
 }
 
 export interface DevConsoleFormatOptions {
-  inspectOptions?: InspectOptions,
-  basePath?: string,
-  showTimestamps?: boolean,
+  inspectOptions?: InspectOptions
+  basePath?: string
+  showTimestamps?: boolean
   addLineSeparation?: boolean
 }
 
-export interface DevConsoleTransportOptions extends DevConsoleFormatOptions {}
+export type DevConsoleTransportOptions = DevConsoleFormatOptions

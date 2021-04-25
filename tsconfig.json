@@ -7,8 +7,8 @@
     "jsx": "preserve",
 
     "module": "CommonJS",
-    "target": "ES5",
-    "lib": ["ES5"],
+    "target": "ES6",
+    "lib": ["ES6"],
     "moduleResolution": "node",
     
     "sourceMap": true,

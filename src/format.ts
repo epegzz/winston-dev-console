@@ -1,13 +1,15 @@
 /* eslint-disable no-control-regex */
-import { inspect } from 'util'
 import path from 'path'
+import { inspect } from 'util'
 
 import colors from 'colors/safe'
 import { Format, TransformableInfo } from 'logform'
 import { MESSAGE, SPLAT } from 'triple-beam'
 import * as winston from 'winston'
 
+import calleeStore from './calleeStore'
 import { Callee, DevConsoleFormatOptions } from './types'
+
 export class DevConsoleFormat {
   private static readonly reSpaces = /^\s+/
   private static readonly reSpacesOrEmpty = /^(\s*)/
@@ -90,7 +92,9 @@ export class DevConsoleFormat {
   private getTimestamp(info: TransformableInfo): string {
     let timestamp = ''
     if (info.timestamp) {
-      timestamp = colors.italic(colors.dim(` ${info.timestamp.replace('T', ' ')}`))
+      timestamp = colors.italic(
+        colors.dim(` ${info.timestamp.replace('T', ' ')}`)
+      )
     }
 
     return timestamp
@@ -112,25 +116,25 @@ export class DevConsoleFormat {
     const metaLines: string[] = []
     const splat = { ...info[(SPLAT as unknown) as string][0] }
 
-    delete splat._callee
-
     if (Object.keys(splat).length > 0) {
       this.inspector(splat, metaLines)
     }
     return metaLines
   }
 
-  private getCallee(info: TransformableInfo): Callee {
-    const callee = info?._callee as Callee ?? {}
+  private getCallee(): Callee | undefined {
+    const callee = calleeStore?.value
 
-    if (callee.filePath) {
+    if (callee?.filePath) {
       if (!this.opts.basePath) {
         // By default remove anything before and including `src/`
         callee.filePath = callee.filePath.replace(/^.*\/src\//, '')
       } else {
-        callee.filePath = callee.filePath.replace(`${path.resolve(this.opts.basePath)}/`, '')
+        callee.filePath = callee.filePath.replace(
+          `${path.resolve(this.opts.basePath)}/`,
+          ''
+        )
       }
-      
     }
 
     return callee
@@ -151,7 +155,7 @@ export class DevConsoleFormat {
     info: TransformableInfo,
     metaLines: string[],
     color: string,
-    callee: Callee
+    callee?: Callee
   ): void {
     const pad = this.getPadding(info.message)
     const infoIndex = (MESSAGE as unknown) as string
@@ -164,7 +168,7 @@ export class DevConsoleFormat {
       )}${this.getTimestamp(info)}`
     }
 
-    if (callee.filePath) {
+    if (callee) {
       const filePath = ` at ${callee?.filePath}:${callee?.lineNumber}`
       const functionName = callee.functionName
         ? ` [${callee.functionName}]`
@@ -180,7 +184,6 @@ export class DevConsoleFormat {
         colors.italic(`${filePath}${functionName}`)
       )}${colors.reset(' ')}`
     }
-
 
     metaLines.forEach((line, lineNumberIndex, arr) => {
       const lineNumber = colors.dim(
@@ -206,8 +209,7 @@ export class DevConsoleFormat {
 
   public transform(info: TransformableInfo): TransformableInfo {
     const index = (MESSAGE as unknown) as string
-
-    const callee = this.getCallee(info)
+    const callee = this.getCallee()
 
     const metaLines: string[] = [
       ...this.getStackLines(info),
@@ -219,9 +221,7 @@ export class DevConsoleFormat {
     info[index] = this.getMessage(
       info,
       DevConsoleFormat.chars[
-        metaLines.length > 0 || callee?.filePath
-          ? 'startLine'
-          : 'singleLine'
+        metaLines.length > 0 || callee?.filePath ? 'startLine' : 'singleLine'
       ],
       color
     )

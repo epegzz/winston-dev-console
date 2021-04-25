@@ -1,6 +1,6 @@
 import { format } from './format'
-import { transport } from './transport'
 import { init } from './init'
+import { transport } from './transport'
 
 export default {
   transport,
