@@ -33,10 +33,10 @@ function createPatchedLogger(
     if (typeof args[0] === 'string') {
       message = args[0]
       if (typeof args[1] === 'object') {
-        meta = { ...args[1] }
+        meta = args[1]
       }
     } else if (typeof args[0] === 'object') {
-      meta = { ...args[0] }
+      meta = args[0]
     }
 
     calleeStore.value = getCallee()
