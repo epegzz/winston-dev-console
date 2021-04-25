@@ -1,7 +1,7 @@
 {
   "name": "@epegzz/winston-dev-console",
   "description": "Winston@3 console format aimed to improve development UX",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "license": "MIT",
   "author": {
     "name": "Daniel Schäfer <epegzz@gmail.com>",
