@@ -2,9 +2,7 @@ import path from 'path'
 import { inspect } from 'util'
 
 import colors from 'colors/safe'
-import { Format, TransformableInfo } from 'logform'
-// @ts-ignore
-import { format as winstonFormat } from 'logform/dist/browser'
+import { Format, TransformableInfo, format as winstonFormat } from 'logform'
 import { MESSAGE, SPLAT } from 'triple-beam'
 
 import calleeStore from './calleeStore'
