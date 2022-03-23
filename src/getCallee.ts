@@ -4,13 +4,15 @@ export function getCallee(): Callee {
   try {
     throw new Error()
   } catch (e) {
-    const line = e.stack.split('\n')[3] || ''
+    const error = e as Error;
+
+    const line = error.stack?.split('\n')[3] ?? ''
     const functionNameMatch = line.match(/\w+@|at (([^(]+)) \(.*/)
     const functionName = (functionNameMatch && functionNameMatch[1]) || ''
 
     const result = line.match(/(\/[^:]+):([0-9]+):[0-9]+/)
-    const filePath = result[1] || ''
-    const lineNumber = result[2] || ''
+    const filePath = result?.[1] ?? ''
+    const lineNumber = result?.[2] ?? ''
 
     return {
       functionName,
